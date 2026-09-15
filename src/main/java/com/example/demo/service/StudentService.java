@@ -53,6 +53,14 @@ public class StudentService {
         return studentRepository.save(existing);
     }
 
+    public List<Student> searchByName(String name){
+        return studentRepository
+                .findByFirstnameContaining(name);
+    }
+    public List<Student> filterByCourse(String course){
+        return studentRepository.findByCourse(course);
+    }
+
     public void deleteStudent(Long id){
         studentRepository.deleteById(id);
     }

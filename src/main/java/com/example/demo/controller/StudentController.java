@@ -44,6 +44,16 @@ public class StudentController {
         studentService.deleteStudent(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/search")
+    public List<Student> searchStudents(
+            @RequestParam String name){
+        return studentService.searchByName(name);
+    }
+    @GetMapping("/filter")
+    public List<Student> filterByCourse(
+            @RequestParam String course){
+        return studentService.filterByCourse(course);
+    }
 
 
 }
