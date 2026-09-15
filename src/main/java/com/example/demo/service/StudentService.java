@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.Student;
+import com.example.demo.exception.StudentNotFoundException;
 import com.example.demo.repo.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class StudentService {
     public Student getStudentById(Long id){
         return studentRepository.findById(id)
                 .orElseThrow(() ->
-                new RuntimeException("Student Not Found"));
+                new StudentNotFoundException(id));
     }
 
     public Student updateStudent(Long id,Student student){

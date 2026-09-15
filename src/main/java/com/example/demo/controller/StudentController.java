@@ -4,8 +4,8 @@ import com.example.demo.Student;
 import com.example.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,8 +27,9 @@ public class StudentController {
         return studentService.getAllStudents();
     }
     @GetMapping("/{id}")
-    public Student getStudentById(@PathVariable Long id){
-        return studentService.getStudentById(id);
+    public ResponseEntity<Student> getStudentById(
+            @PathVariable Long id){
+        return ResponseEntity.ok(studentService.getStudentById(id));
     }
     @PutMapping("/{id}")
     public Student updateStudent(
