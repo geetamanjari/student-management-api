@@ -14,6 +14,21 @@ public class StudentService {
     private StudentRepository studentRepository;
 
     public Student createstudent(Student student){
+        if (student.getFirstname() == null ||
+                student.getFirstname().isBlank()) {
+            throw new IllegalArgumentException(
+                    "Firstname is required");
+        }
+        if (student.getLastname() == null ||
+                student.getLastname().isBlank()) {
+            throw new IllegalArgumentException(
+                    "Lastname is required");
+        }
+        if (student.getEmail() == null ||
+                student.getEmail().isBlank()) {
+            throw new IllegalArgumentException(
+                    "Email is required");
+        }
         student.setCreatedAt(String.valueOf(LocalDateTime.now()));
         return studentRepository.save(student);
     }

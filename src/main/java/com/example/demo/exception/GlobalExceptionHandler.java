@@ -15,18 +15,18 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ResponseStatusException.class)
+    @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, Object>>
-    handleResponseStatusException(ResponseStatusException ex) {
+    handleIllegalArgument(IllegalArgumentException ex) {
 
         Map<String, Object> error = new HashMap<>();
         error.put("timestamp", LocalDateTime.now());
-        error.put("status", ex.getStatusCode().value());
-        error.put("error", ex.getReason());
+        error.put("status", 400);
+        error.put("error", "Validation Failed");
         error.put("message", ex.getMessage());
 
         return ResponseEntity
-                .status(ex.getStatusCode())
+                .status(HttpStatus.BAD_REQUEST)
                 .body(error);
     }
 }
