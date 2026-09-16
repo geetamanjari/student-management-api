@@ -4,6 +4,8 @@ import com.example.demo.Student;
 import com.example.demo.exception.StudentNotFoundException;
 import com.example.demo.repo.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -33,8 +35,8 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public List<Student> getAllStudents(){
-        return studentRepository.findAll();
+    public Page<Student> getAllStudents(Pageable pageable){
+        return studentRepository.findAll(pageable);
     }
 
     public Student getStudentById(Long id){

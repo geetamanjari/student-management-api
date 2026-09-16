@@ -3,11 +3,18 @@ package com.example.demo.controller;
 import com.example.demo.Student;
 import com.example.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
+
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
+
+
 import java.util.List;
 
 @RestController
@@ -23,13 +30,14 @@ public class StudentController {
                 .body(studentService.createstudent(student));
     }
     @GetMapping
-    public List<Student> getAllStudents(){
-        return studentService.getAllStudents();
-    }
-    @GetMapping("/{id}")
-    public ResponseEntity<Student> getStudentById(
-            @PathVariable Long id){
-        return ResponseEntity.ok(studentService.getStudentById(id));
+    public ResponseEntity<Page<Student>> getAllStudents(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size){
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Student> students =studentService
+                .getAllStudents(pageable);
+        return ResponseEntity.ok(students);
     }
     @PutMapping("/{id}")
     public Student updateStudent(
